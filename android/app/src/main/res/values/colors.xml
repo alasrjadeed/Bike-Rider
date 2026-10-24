@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- #050608 — the game's html/body background. The window, the WebView and the page all use
+         it so no white frame is ever visible. -->
+    <color name="bg">#FF050608</color>
+    <color name="black">#FF000000</color>
+</resources>

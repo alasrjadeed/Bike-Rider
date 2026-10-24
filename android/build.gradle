@@ -1,0 +1,19 @@
+// Top-level build file: Huawei AppGallery release build for Bike Rider.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://developer.huawei.com/repo/' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath 'com.huawei.agconnect:agcp:1.5.2.300'
+    }
+}
+
+// Keep the legacy manual-build artifacts in android/build/ untouched by Gradle.
+rootProject.layout.buildDirectory = file('build-gradle')
+
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
+}

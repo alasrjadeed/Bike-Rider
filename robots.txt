@@ -1,0 +1,5 @@
+# Bike Rider — crawl rules
+User-agent: *
+Allow: /
+
+Sitemap: https://alasarjadeed.com/sitemap.xml

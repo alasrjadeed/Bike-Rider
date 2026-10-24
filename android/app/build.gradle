@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.huawei.agconnect'
+
+android {
+    namespace 'com.bikerider.game'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.bikerider.game'
+        minSdk 24
+        targetSdk 34
+        versionCode 6
+        versionName '1.0.6'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../release.keystore')
+            // Read the credential from android/keystore.properties (gitignored, chmod 600) rather than
+            // hardcoding it here. The password is the AppGallery signing identity — if it lives in a
+            // tracked file it gets copied, shared and committed. Env var wins so CI can inject it.
+            def creds = new Properties()
+            def credFile = file('../keystore.properties')
+            if (credFile.exists()) credFile.withInputStream { creds.load(it) }
+            storePassword System.getenv('ANDROID_STORE_PASS') ?: creds.getProperty('storePass')
+            keyAlias System.getenv('ANDROID_KEY_ALIAS') ?: creds.getProperty('keyAlias', 'release')
+            keyPassword System.getenv('ANDROID_KEY_PASS') ?: creds.getProperty('keyPass')
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // The game is staged into src/main/assets/public by `npm run sync:public` +
+    // the aab task; Gradle never invents its own copy.
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
+}

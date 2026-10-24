@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Offline (no-Gradle) manifest for tools/build-apk.mjs — the sideload/test APK path.
+
+  The Gradle module at android/app/src/main/AndroidManifest.xml is the real, shipped manifest: it is
+  what `npm run build:aab` bundles for AppGallery. This file exists because the raw aapt2+d8 pipeline
+  in tools/build-apk.mjs links a manifest of its own, and keeping the two in step by hand is how the
+  launcher label and the Activity class drifted apart in the first place.
+
+  Keep the identity fields (label, Activity class, sdk levels) identical to android/app/build.gradle.
+
+  No INTERNET permission: the app is fully offline by design. Nothing it loads may ever touch the
+  network, and the WebView client in MainActivity refuses every off-host request anyway.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bikerider.game">
+
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34" />
+
+    <uses-feature android:name="android.hardware.touchscreen" android:required="true" />
+    <uses-feature android:name="android.hardware.faketouch" android:required="false" />
+    <uses-feature android:name="android.hardware.opengles" android:required="false" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:allowBackup="true"
+        android:fullBackupContent="false"
+        android:usesCleartextTraffic="false"
+        android:supportsRtl="true"
+        android:largeHeap="false">
+
+        <meta-data android:name="android.max_aspect" android:value="2.5" />
+
+        <activity
+            android:name="com.bikerider.game.MainActivity"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|smallestScreenSize|uiMode|density|navigation|keyboard"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

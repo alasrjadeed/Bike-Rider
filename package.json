@@ -1,0 +1,36 @@
+{
+  "name": "bike-rider",
+  "version": "1.0.6",
+  "versionCode": "6",
+  "description": "Bike Rider \u2014 a night-ride delivery sim for Bahrain, in one HTML file",
+  "main": "index.html",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node tools/audit.mjs index.html public/index.html && node tools/regress.mjs",
+    "test:e2e": "node tools/regress.mjs",
+    "test:audit": "node tools/audit.mjs index.html public/index.html",
+    "serve": "node tools/serve.mjs",
+    "sync:public": "node tools/sync-public.mjs",
+    "icons": "node tools/make-icons.mjs",
+    "build:apk": "node tools/build-apk.mjs",
+    "build:aab": "node tools/build-aab.mjs",
+    "upload:agc": "node tools/agc-upload.mjs",
+    "build:web": "node tools/build-web.mjs",
+    "build": "npm run sync:public && npm test && npm run build:web && npm run build:apk",
+    "device": "node tools/device-check.mjs",
+    "release": "npm run sync:public && npm test && npm run build:web && npm run build:apk -- --release",
+    "db:push": "supabase db push --yes",
+    "db:new": "supabase migration new",
+    "mcp:index": "bash tools/auto-mcp-index.sh",
+    "check:agc": "node tools/check-agc.mjs"
+  },
+  "author": "AL ASAR JADEED (https://alasarjadeed.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "supabase": "^2.121.0"
+  }
+}

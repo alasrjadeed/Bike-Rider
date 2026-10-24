@@ -1,0 +1,24 @@
+{
+  "name": "Bike Rider",
+  "short_name": "Bike Rider",
+  "description": "Bike Rider — a free offline 3D delivery motorbike game. Deliver food, parcels and fuel across Bahrain, Riyadh (Saudi Arabia) and Dubai (UAE). Play in English, Arabic and more — as a PWA or Android app. Made by AL ASAR JADEED.",
+  "lang": "en",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#050608",
+  "theme_color": "#050608",
+  "categories": ["games"],
+  "icons": [
+    { "src": "icons/favicon-16.png", "sizes": "16x16", "type": "image/png", "purpose": "any" },
+    { "src": "icons/favicon-32.png", "sizes": "32x32", "type": "image/png", "purpose": "any" },
+    { "src": "icons/favicon-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

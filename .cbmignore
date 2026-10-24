@@ -1,0 +1,7 @@
+# codebase-memory ignore list — keeps the graph on source, not mirrors/artifacts
+public/
+dist/
+android/build/
+conversations/
+OLD FILES/
+music/

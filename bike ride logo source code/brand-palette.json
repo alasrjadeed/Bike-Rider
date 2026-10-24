@@ -1,0 +1,121 @@
+{
+  "brand": "Bahrain Rider",
+  "source_image": {
+    "filename": "Bahrain Riders App .png",
+    "width": 610,
+    "height": 409,
+    "mode": "RGBA",
+    "background": "transparent"
+  },
+  "colors": [
+    {
+      "hex": "#000000",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#F0F0F0",
+      "rgb": [
+        240,
+        240,
+        240
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#C00000",
+      "rgb": [
+        192,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#D00000",
+      "rgb": [
+        208,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#A00000",
+      "rgb": [
+        160,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#B00000",
+      "rgb": [
+        176,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#E0E0E0",
+      "rgb": [
+        224,
+        224,
+        224
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#202020",
+      "rgb": [
+        32,
+        32,
+        32
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#900000",
+      "rgb": [
+        144,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#101010",
+      "rgb": [
+        16,
+        16,
+        16
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#100000",
+      "rgb": [
+        16,
+        0,
+        0
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    },
+    {
+      "hex": "#303030",
+      "rgb": [
+        48,
+        48,
+        48
+      ],
+      "usage": "Approximate sampled dominant color; verify visually before production."
+    }
+  ],
+  "note": "Colors are approximate quantized samples from the supplied raster, not official original design tokens."
+}

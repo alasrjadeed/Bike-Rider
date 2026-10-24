@@ -1,0 +1,58 @@
+# BIKE RIDER
+
+> BIKE RIDER is a free, offline-capable 3D delivery-riding game built as a single HTML file
+> (Three.js r128 + Web Audio) and shipped both as an installable PWA and a signed Android APK.
+> You ride a motorcycle through a fictionalised Gulf city, carry passengers, food, parcels and
+> medicine on timed shifts, earn the local currency and upgrade the bike. Developed and published
+> by AL ASAR JADEED.
+
+One engine ships **three runtime-swappable country chapters** — Bahrain (the home game), Saudi
+Arabia (one city: Riyadh) and the UAE (one city: Dubai) — each with its own districts, landmarks,
+streets, licence plate, bus livery and display currency. The economy and physics are shared; a
+chapter is thematic data, not a fork.
+
+- **Play:** https://alasarjadeed.com/
+- **Form factor:** single `index.html`; landscape; desktop browser, mobile Safari/Chrome, Android WebView
+- **Distribution:** PWA (service-worker offline) and signed Android APK
+- **Languages:** English, العربية (Arabic, incl. RTL), Filipino, हिन्दी, ไทย, ਪੰਜਾਬੀ
+- **Price / business model:** free play — no ads, no in-app purchases, no accounts, no analytics
+- **Assets:** fully procedural — no downloaded models, textures or audio; all sound is Web Audio synthesis
+- **Saves:** local only (`localStorage`); nothing is transmitted unless the player opts into the leaderboard
+- **Leaderboard:** optional **WORLD RIDERS** global board (Supabase/PostgREST) — read on open, written only on an explicit **SUBMIT MY BEST** press; fully playable offline
+
+## Facts an agent should not get wrong
+
+- One file, no build step: all game code lives in `index.html` (~6,500 lines). There is no bundler.
+- The game makes **no network calls for gameplay**; Google Fonts are optional and fall back offline.
+- The *only* outbound request is the opt-in global leaderboard. It uses plain `fetch` against the
+  Supabase REST API — deliberately **not** `@supabase/supabase-js`, so no library is bundled or
+  loaded from a CDN. `tools/audit.mjs` fails the build on any remote `<script src>`.
+- Fictional brands only (BahrainRide, KhanaJet, DakBox, SehatPlus, Sitara Motors, Zoom Fuel, GAUSS AUTO).
+  Real *famous landmark* names are used (geography), never real trademarks.
+- Currency is display-only: `BHD n.nnn` (Bahrain), `SR n.nn` (Saudi), `AED n.nn` (UAE). Economy numbers are shared.
+
+## Documentation (in repository)
+
+- [Brain.md](./Brain.md): living design log — vision, pillars, decisions and their "why"
+- [PRD.md](./PRD.md): product requirements
+- [TRD.md](./TRD.md): technical requirements
+- [Architecture.md](./Architecture.md): file map, runtime architecture, code-section index
+- [app flow.md](./app%20flow.md): screen/state machine and user journeys
+- [backend scema.md](./backend%20scema.md): persistence schema (local save + studio store; optional Supabase leaderboard)
+- [UI-UX Design Brief.md](./UI-UX%20Design%20Brief.md): HUD, screens, controls, accessibility
+- [Design.md](./Design.md): art direction, audio and brand guidelines
+- [open graph tags.md](./open%20graph%20tags.md): shipped SEO / social metadata
+- [Phases.md](./Phases.md): roadmap and build history
+- [Task.md](./Task.md): live task queue and release checklist
+- [Implementation Plan.md](./Implementation%20Plan.md): forward plan and acceptance criteria
+- [Rules.md](./Rules.md): development guardrails
+- [security.md](./security.md): security & privacy posture
+- [licence.md](./licence.md): licensing
+- [Memory.md](./Memory.md): facts, traps and conventions that must survive context loss
+- [mcp-index.md](./mcp-index.md): generated index of the documentation set
+
+## License
+
+Game code, procedurally generated art, logo, icons and SFX: **CC0 1.0 Universal** (public domain
+dedication). Three.js r128: MIT. Fonts: SIL OFL 1.1. See [licence.md](./licence.md) and
+[CREDITS.txt](./CREDITS.txt).

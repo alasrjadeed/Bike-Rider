@@ -1,0 +1,27 @@
+BIKE RIDER — credits & licences
+================================
+
+Developer & publisher:
+  AL ASAR JADEED — https://alasarjadeed.com
+
+Game code, 3D models (all built from code), textures, sound effects, logo and icons:
+  Original work created for BIKE RIDER.
+  Released under CC0 1.0 Universal (public domain dedication) — copy, modify,
+  distribute and use commercially, no conditions, credit appreciated not required:
+  https://creativecommons.org/publicdomain/zero/1.0/
+  Legal code: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+Music — "BIKE RIDER Theme" (music/bike-riders-theme.wav)
+  Original composition created specifically for BIKE RIDER. It was synthesised
+  from code; no samples, loops or recordings by anyone else were used.
+  Released under CC0 1.0 Universal (public domain dedication):
+  https://creativecommons.org/publicdomain/zero/1.0/
+
+Three.js r128 (vendor/three.r128.min.js)
+  Copyright © 2010-2021 three.js authors. MIT License — see vendor/THREE-LICENSE.txt
+
+Fonts (loaded from Google Fonts when online; the game falls back to system fonts):
+  Baloo 2, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Devanagari, Noto Sans Gurmukhi — SIL OFL 1.1
+
+All brands in the game (BahrainRide, KhanaJet, DakBox, SehatPlus, Sitara Motors,
+Zoom Fuel, etc.) are fictional. District names ETC. are used as fictionalised settings.
