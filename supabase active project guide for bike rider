@@ -1,0 +1,20 @@
+Do these 2 things:
+1) Unpause Supabase
+1. Go to Supabase Dashboard
+2. If it says "Project paused", click Restore project / Unpause
+3. Wait for it to become active (usually takes a minute)
+2) Add GitHub repo secrets
+Go to Bike-Rider > Settings > Secrets and variables > Actions > New repository secret
+Add these two:
+Secret Name	Value
+SUPABASE_URL	https://ckssgqvrpogjiobnsfsc.supabase.co
+SUPABASE_PUBLISHABLE_KEY	sb_publishable_tO7PkU7VR4Dw33oKMyh5pA_gpYbynpk
+3) Auto-ping daily so it doesn't pause again
+I've added a GitHub Action to ping Supabase once per day. Pushing it now.
+$ mkdir -p /home/oem/Desktop/bike-rider/.github/workflows && cat > /home/oem/Desktop/bike-rider/.github/workflows/keep-supabase-alive.yml << 'EOF'…
+[main dfc09c1] Add daily Supabase keep-alive workflow
+ 1 file changed, 20 insertions(+)
+ create mode 100644 .github/workflows/keep-supabase-alive.yml
+To https://github.com/alasrjadeed/Bike-Rider.git
+   e432a6a..dfc09c1  main -> main
+Unpause at Supabase (https://app.supabase.com/project/ckssgqvrpogjiobnsfsc), add the 2 secrets to GitHub Actions, workflow pushed (runs daily 03:00 UTC + manual).
