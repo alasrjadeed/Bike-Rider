@@ -232,11 +232,16 @@ const readCredFile = () => {
 };
 
 const credentials = () => {
+  // A debug build always uses the well-known debug identity, matching the keystore that
+  // keystore() generates below. android/keystore.properties holds the *release* password and
+  // alias; applying them to a debug build is what made `npm run build` fail with
+  // "keystore password was incorrect" as soon as a release keystore existed.
+  if (!RELEASE) return { storePass: 'android', keyPass: 'android', keyAlias: 'androiddebugkey' };
   const file = readCredFile();
-  const storePass = process.env.ANDROID_STORE_PASS || file.storePass || (RELEASE ? null : 'android');
+  const storePass = process.env.ANDROID_STORE_PASS || file.storePass || null;
   const keyPass = process.env.ANDROID_KEY_PASS || file.keyPass || storePass;
-  const keyAlias = process.env.ANDROID_KEY_ALIAS || file.keyAlias || (RELEASE ? null : 'androiddebugkey');
-  if (RELEASE && !(storePass && keyAlias)) die(
+  const keyAlias = process.env.ANDROID_KEY_ALIAS || file.keyAlias || null;
+  if (!(storePass && keyAlias)) die(
     'no release signing credentials.\n'
     + '  Set ANDROID_STORE_PASS and ANDROID_KEY_ALIAS, or fill in android/keystore.properties:\n'
     + '    storePass=...\n'
