@@ -12,7 +12,9 @@ const TYPES = {
   '.wav': 'audio/wav', '.xml': 'application/xml', '.txt': 'text/plain; charset=utf-8',
 };
 
-export function serve(root, port = 8391) {
+export const DEFAULT_PORT = 8642; // game dev server; keep it off other projects' ports
+
+export function serve(root, port = DEFAULT_PORT) {
   const server = createServer((req, res) => {
     let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     if (p.endsWith('/')) p += 'index.html';
@@ -35,7 +37,7 @@ export function serve(root, port = 8391) {
 
 // `npm run dev` (and `npm run serve`) start this file directly; the harness imports serve().
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const port = Number(process.env.PORT) || 8391;
+  const port = Number(process.env.PORT) || DEFAULT_PORT;
   await serve(process.cwd(), port);
   console.log(`serving on port ${port} — http://localhost:${port}/  (Ctrl-C to stop)`);
 }

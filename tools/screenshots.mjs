@@ -12,7 +12,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public', 'Screenshot');
 fs.mkdirSync(OUT, { recursive: true });
 
-const srv = await serve(ROOT);
+const srv = await serve(ROOT, 0);
 const chrome = await launch({ width: 1600, height: 900 });
 let failed = false;
 

@@ -69,7 +69,7 @@ group('offline-boot', async s => {
   // fail is weaker evidence than a network that does not exist: here the cache is the only possible
   // source for every byte, which is the cold-start case the release checklist asks about. A separate
   // target keeps this from navigating the shared session off the game every other group is driving.
-  const alt = await serve(ROOT, 8392);
+  const alt = await serve(ROOT, 0); // ephemeral: never collide with another project or the dev server
   const base = 'http://127.0.0.1:' + alt.port + '/index.html?debug';
   const port = Number(new URL(s.ws.url).port);
   const { targetId } = await s.send('Target.createTarget', { url: 'about:blank' });
@@ -2225,7 +2225,7 @@ group('ustad-loan', async s => {
 
 // ---------------------------------------------------------------- runner
 const t0 = Date.now();
-const srv = await serve(ROOT);
+const srv = await serve(ROOT, 0);
 const chrome = await launch({});
 let s = null;
 let pass = 0, fail = 0;
