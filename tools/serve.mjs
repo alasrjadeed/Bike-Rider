@@ -28,13 +28,15 @@ export function serve(root, port = 8391) {
     });
     createReadStream(file).pipe(res);
   });
-  return new Promise(res => server.listen(port, '127.0.0.1', () => res({ server, port, close: () => new Promise(r => server.close(r)) })));
+  // No host argument: Node binds :: with dual-stack, so 127.0.0.1, [::1] (what "localhost"
+  // often resolves to first) and the LAN address all reach the server.
+  return new Promise(res => server.listen(port, () => res({ server, port, close: () => new Promise(r => server.close(r)) })));
 }
 
 // `npm run dev` (and `npm run serve`) start this file directly; the harness imports serve().
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const port = Number(process.env.PORT) || 8391;
   await serve(process.cwd(), port);
-  console.log(`serving http://127.0.0.1:${port}/  (Ctrl-C to stop)`);
+  console.log(`serving on port ${port} — http://localhost:${port}/  (Ctrl-C to stop)`);
 }
 
