@@ -10,6 +10,8 @@ on:
   workflow_dispatch:
   # Verify the ping on push instead of waiting for the next cron.
   push:
+    branches:
+      - main
     paths:
       - '.github/workflows/keep-supabase-alive.yml'
 
