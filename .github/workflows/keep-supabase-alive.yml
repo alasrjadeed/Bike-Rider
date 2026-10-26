@@ -1,20 +1,59 @@
 name: Keep Supabase Alive
 
+# Supabase pauses free projects after ~7 days without API activity. A query against a real
+# table counts as activity. A request to /rest/v1/ does not: since 2026 the REST root rejects
+# every publishable/anon key with {"message":"Secret API key required"}, so the old ping failed
+# even when it was configured correctly (verified 2026-10-26).
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
+    - cron: '0 */6 * * *'  # every 6 hours
   workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: keep-supabase-alive
+  cancel-in-progress: false
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      # Both values already ship inside index.html, which is deployed publicly. They are not
+      # secrets (the publishable key is RLS-scoped by design). Repo secrets override them if
+      # they are ever added under Settings -> Secrets and variables -> Actions.
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ckssgqvrpogjiobnsfsc.supabase.co' }}
+      SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_tO7PkU7VR4Dw33oKMyh5pA_gpYbynpk' }}
     steps:
       - name: Ping Supabase
         run: |
-          curl -s -o /dev/null -w "HTTP:%{http_code}\n" \
-            "${SUPABASE_URL}/rest/v1/" \
-            -H "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
-            -H "Authorization: Bearer ${SUPABASE_PUBLISHABLE_KEY}"
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+          set -euo pipefail
+
+          # A trailing slash produces //rest/v1 and a 404, so strip it.
+          base="${SUPABASE_URL%/}"
+
+          if [ -z "$base" ]; then
+            echo "::error::SUPABASE_URL is empty. Set it in Settings -> Secrets and variables -> Actions, or fix the default in this file."
+            exit 1
+          fi
+          if [ -z "${SUPABASE_PUBLISHABLE_KEY:-}" ]; then
+            echo "::error::SUPABASE_PUBLISHABLE_KEY is empty. Set it in Settings -> Secrets and variables -> Actions, or fix the default in this file."
+            exit 1
+          fi
+
+          echo "GET $base/rest/v1/leaderboard?select=id&limit=1"
+          code=$(curl --silent --show-error --max-time 30 \
+            --output /tmp/ping.json --write-out '%{http_code}' \
+            "$base/rest/v1/leaderboard?select=id&limit=1" \
+            -H "apikey: $SUPABASE_PUBLISHABLE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_PUBLISHABLE_KEY")
+
+          echo "HTTP $code"
+          head -c 300 /tmp/ping.json || true
+          echo
+
+          case "$code" in
+            2*) echo "Supabase answered — project is active." ;;
+            *)  echo "::error::Supabase ping failed with HTTP $code (see the body above)."; exit 1 ;;
+          esac
