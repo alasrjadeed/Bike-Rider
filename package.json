@@ -14,6 +14,7 @@
     "test:e2e": "node tools/regress.mjs",
     "test:audit": "node tools/audit.mjs index.html public/index.html",
     "serve": "node tools/serve.mjs",
+  "dev": "node tools/serve.mjs",
     "sync:public": "node tools/sync-public.mjs",
     "icons": "node tools/make-icons.mjs",
     "build:apk": "node tools/build-apk.mjs",

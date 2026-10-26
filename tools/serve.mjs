@@ -2,6 +2,7 @@
 // the vendored three.js and relative asset paths all behave exactly as they do in production.
 import { createServer } from 'node:http';
 import { createReadStream, statSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import { extname, join, normalize } from 'node:path';
 
 const TYPES = {
@@ -29,3 +30,11 @@ export function serve(root, port = 8391) {
   });
   return new Promise(res => server.listen(port, '127.0.0.1', () => res({ server, port, close: () => new Promise(r => server.close(r)) })));
 }
+
+// `npm run dev` (and `npm run serve`) start this file directly; the harness imports serve().
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const port = Number(process.env.PORT) || 8391;
+  await serve(process.cwd(), port);
+  console.log(`serving http://127.0.0.1:${port}/  (Ctrl-C to stop)`);
+}
+
