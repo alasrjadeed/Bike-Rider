@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '0 */6 * * *'  # every 6 hours
   workflow_dispatch:
+  # Verify the ping on push instead of waiting for the next cron.
+  push:
+    paths:
+      - '.github/workflows/keep-supabase-alive.yml'
 
 permissions: {}
 
