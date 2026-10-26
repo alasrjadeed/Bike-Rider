@@ -101,9 +101,24 @@ The region made no difference to these answers — the errors are about credenti
 > `tools/agc-config.mjs` reads the region out of `agconnect-services.json` and both the upload
 > script and the preflight use it, so there is one source of truth for the host.
 
-> **Security.** The tier-1 client secret was pasted in plaintext into a chat transcript on
-> 2026-10-21/22, and the app's OAuth secret on 2026-10-22. Neither can upload packages, but
-> treat both as exposed: rotate them in the AGC console if you want them clean.
+> **Security — the tier-1 credentials are public, rotate them.** The project client id/secret and
+> API key were pasted into chat on 2026-10-21/22, and those transcripts (including a 71 MB copy of
+> the session database) were committed to this public repo. They were purged from `main` on
+> 2026-10-26, but GitHub still serves the old commits by SHA, so assume the pair is public:
+>
+> 1. AGC console → Project settings → **API key** → delete the exposed key, create a new one.
+> 2. AGC console → **Users and permissions → API key → Connect API** → delete the exposed client,
+>    create a new one. This is the only credential type that can upload.
+> 3. Update `agconnect-services.json` and `android/app/agconnect-services.json`
+>    (`client.client_secret`, `client.api_key`), and `.agc.env` (tier-1 key).
+> 4. `npm run build`, then `cd android && ./gradlew bundleRelease`; run `npm run check:agc` and
+>    re-verify the AAB signature before uploading.
+>
+> Until steps 1–2 are done, anyone reading the repo history can call the project API with that
+> pair. The app's OAuth secret (2026-10-22) is HMS-only and cannot publish, but rotate it as well.
+>
+> `conversations/` (save points and the session database) is gitignored as of 2026-10-26 and must
+> stay local — never commit a transcript.
 
 ---
 
